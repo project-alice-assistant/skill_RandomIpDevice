@@ -1,0 +1,7 @@
+{
+    "skill": "RandomIpDevice",
+    "icon": "time",
+    "description": "Monitor any device reachable via ip",
+    "slotTypes": [],
+    "intents": []
+}

@@ -1,0 +1,23 @@
+{
+    "name": "RandomIpDevice",
+    "version": "0.0.1",
+    "icon": "fab fa-battle-net",
+    "category": "undefined",
+    "author": "philipp2310",
+    "maintainers": [],
+    "desc": "Monitor any device reachable via ip",
+    "aliceMinVersion": "1.0.0-b1",
+    "systemRequirements": [
+        ""
+    ],
+    "pipRequirements": [
+        "ping3"
+    ],
+    "conditions": {
+        "lang": [
+            "en",
+            "de"
+        ],
+        "asrArbitraryCapture": true
+    }
+}

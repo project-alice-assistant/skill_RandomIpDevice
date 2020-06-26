@@ -9,6 +9,5 @@ class RandomIpDevice(AliceSkill):
 	Description: Monitor any device reachable via ip
 	"""
 
-	@IntentHandler('MyIntentName')
-	def dummyIntent(self, session: DialogSession, **_kwargs):
+	def pingDevice(self,):
 		pass

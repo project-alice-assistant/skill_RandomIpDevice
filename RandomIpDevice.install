@@ -1,7 +1,7 @@
 {
     "name": "RandomIpDevice",
     "version": "0.0.1",
-    "icon": "fab fa-battle-net",
+    "icon": "fas fa-network-wired",
     "category": "undefined",
     "author": "philipp2310",
     "maintainers": [],

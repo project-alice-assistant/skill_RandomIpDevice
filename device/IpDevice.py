@@ -9,8 +9,8 @@ import sqlite3
 class IpDevice(DeviceType):
 
 	DEV_SETTINGS = { 'ip': '',
-	                 'href': '',
-					 'pingRate': 300 }
+					 'name': '',
+	                 'href': '' }
 
 	def __init__(self, data: sqlite3.Row):
 		super().__init__(data, devSettings=self.DEV_SETTINGS, heartbeatRate=0)

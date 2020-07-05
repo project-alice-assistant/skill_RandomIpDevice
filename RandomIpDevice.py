@@ -9,5 +9,5 @@ class RandomIpDevice(AliceSkill):
 	Description: Monitor any device reachable via ip
 	"""
 
-	def pingDevice(self,):
+	def pingDevice(self):
 		pass

@@ -1,6 +1,6 @@
 {
     "name": "RandomIpDevice",
-    "version": "0.0.2",
+    "version": "1.0.0",
     "icon": "fas fa-network-wired",
     "category": "interface",
     "author": "philipp2310",
@@ -17,6 +17,6 @@
             "en",
             "de"
         ],
-        "asrArbitraryCapture": true
+        "asrArbitraryCapture": false
     }
 }

@@ -1,22 +1,25 @@
-from flask import jsonify
+import sqlite3
 import subprocess
 from core.device.model.Device import Device
-from core.device.model.DeviceType import DeviceType
 from core.device.model.DeviceException import RequiresGuiSettings
+from core.device.model.DeviceType import DeviceType
 from core.dialog.model.DialogSession import DialogSession
-import sqlite3
+from flask import jsonify
+
 
 class IpDevice(DeviceType):
+	DEV_SETTINGS = {
+		'name': '',
+		'ip'  : '',
+		'href': ''
+	}
 
-	DEV_SETTINGS = { 'ip': '',
-					 'name': '',
-	                 'href': '' }
 
 	def __init__(self, data: sqlite3.Row):
 		super().__init__(data, devSettings=self.DEV_SETTINGS, heartbeatRate=0)
 
 
-	def discover(self, device: Device, uid: str, replyOnSiteId: str = "", session:DialogSession = None) -> bool:
+	def discover(self, device: Device, uid: str, replyOnSiteId: str = "", session: DialogSession = None) -> bool:
 		if not 'ip' in device.devSettings or not device.devSettings['ip']:
 			raise RequiresGuiSettings()
 		pong = subprocess.call(['ping', '-c', '1', device.devSettings['ip']]) == 0
@@ -25,6 +28,10 @@ class IpDevice(DeviceType):
 
 
 	def getDeviceIcon(self, device: Device) -> str:
+		# ping now and decide on icon
+		# enhancement: ping periodically and update
+		# easy: onFiveMinutes
+		# hard: custom setting
 		try:
 			if subprocess.call(['ping', '-c', '1', device.devSettings['ip']]) == 0:
 				return 'IpDevice_connected.png'
@@ -32,7 +39,6 @@ class IpDevice(DeviceType):
 				return 'IpDevice_disconnected.png'
 		except:
 			pass
-		# ping now and decide on icon
 		return 'IpDevice.png'
 
 

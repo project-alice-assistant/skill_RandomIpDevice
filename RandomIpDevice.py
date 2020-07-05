@@ -9,5 +9,6 @@ class RandomIpDevice(AliceSkill):
 	Description: Monitor any device reachable via ip
 	"""
 
-	def pingDevice(self):
-		pass
+	# possible enhancements:
+	# - request status via voice (device name must be dynamically injected!)
+	pass

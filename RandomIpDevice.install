@@ -2,7 +2,7 @@
     "name": "RandomIpDevice",
     "version": "1.0.0",
     "icon": "fas fa-network-wired",
-    "category": "interface",
+    "category": "household",
     "author": "philipp2310",
     "maintainers": [],
     "desc": "Monitor any device reachable via ip",

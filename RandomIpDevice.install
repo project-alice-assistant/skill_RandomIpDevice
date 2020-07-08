@@ -5,7 +5,7 @@
     "category": "household",
     "author": "philipp2310",
     "maintainers": [],
-    "desc": "Monitor and access any device reachable via ip ",
+    "desc": "Monitor and access any device reachable via ip",
     "aliceMinVersion": "1.0.0-b1",
     "systemRequirements": [
         ""

@@ -16,7 +16,7 @@ class IpDevice(DeviceType):
 
 
 	def __init__(self, data: sqlite3.Row):
-		super().__init__(data, devSettings=self.DEV_SETTINGS, heartbeatRate=0)
+		super().__init__(data, devSettings=self.DEV_SETTINGS, heartbeatRate=0, allowLocationLinks=False)
 
 
 	def discover(self, device: Device, uid: str, replyOnSiteId: str = "", session: DialogSession = None) -> bool:

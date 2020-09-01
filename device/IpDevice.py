@@ -9,7 +9,6 @@ from flask import jsonify
 
 class IpDevice(DeviceType):
 	DEV_SETTINGS = {
-		'name': '',
 		'ip'  : '',
 		'href': ''
 	}

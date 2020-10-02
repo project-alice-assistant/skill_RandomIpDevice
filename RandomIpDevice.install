@@ -1,6 +1,6 @@
 {
     "name": "RandomIpDevice",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "icon": "fas fa-network-wired",
     "category": "household",
     "author": "philipp2310",
@@ -10,8 +10,7 @@
     "systemRequirements": [
         ""
     ],
-    "pipRequirements": [
-    ],
+    "pipRequirements": [],
     "conditions": {
         "lang": [
             "en",

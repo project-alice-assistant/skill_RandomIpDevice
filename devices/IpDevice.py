@@ -55,7 +55,7 @@ class IpDevice(Device):
 		Called whenever a device's icon is clicked on the UI
 		:return:
 		"""
-		if not 'href' in self.devSettings or not self.devSettings['href']:
+		if not self.getConfig('href'):
 			raise RequiresGuiSettings()
 
-		return OnDeviceClickReaction(action=DeviceClickReactionAction.NAVIGATE.value, data=self.devSettings['href']).toDict()
+		return OnDeviceClickReaction(action=DeviceClickReactionAction.NAVIGATE.value, data=self.getConfig('href')).toDict()

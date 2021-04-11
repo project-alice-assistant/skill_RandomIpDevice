@@ -16,14 +16,12 @@ class IpDevice(Device):
 	@classmethod
 	def getDeviceTypeDefinition(cls) -> dict:
 		return {
-			'deviceTypeName'        : 'RandomIpDevice',
+			'deviceTypeName'        : 'IpDevice',
 			'perLocationLimit'      : 0,
 			'totalDeviceLimit'      : 0,
 			'allowLocationLinks'    : False,
 			'allowHeartbeatOverride': False,
 			'heartbeatRate'         : 0,
-			'deviceSettings'        : { 'ip'  : '',
-			                            'href': '' },
 			'abilities'             : [DeviceAbility.PLAY_SOUND, DeviceAbility.CAPTURE_SOUND]
 		}
 

@@ -1,0 +1,16 @@
+{
+	"deviceConfigs": {
+		"ip": {
+			"defaultValue": "",
+			"dataType"    : "string",
+			"isSensitive" : false,
+			"description" : "The ip that should be checked for the current status"
+		},
+		"href": {
+			"defaultValue": "",
+			"dataType"    : "string",
+			"isSensitive" : false,
+			"description" : "The url that should be opened upon clicking the icon"
+		}
+	}
+}

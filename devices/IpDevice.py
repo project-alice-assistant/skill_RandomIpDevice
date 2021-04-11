@@ -4,14 +4,11 @@ from core.device.model.Device import Device
 from core.device.model.DeviceException import RequiresGuiSettings
 from core.device.model.DeviceType import DeviceType
 from core.dialog.model.DialogSession import DialogSession
+from core.device.model.DeviceAbility import DeviceAbility
 from flask import jsonify
 
 
 class IpDevice(Device):
-	DEV_SETTINGS = {
-		'ip'  : '',
-		'href': ''
-	}
 
 	@classmethod
 	def getDeviceTypeDefinition(cls) -> dict:
@@ -22,7 +19,8 @@ class IpDevice(Device):
 			'allowLocationLinks'    : False,
 			'allowHeartbeatOverride': False,
 			'heartbeatRate'         : 0,
-			'deviceSettings'        : DEV_SETTINGS,
+			'deviceSettings'        : { 'ip'  : '',
+			                            'href': '' },
 			'abilities'             : [DeviceAbility.PLAY_SOUND, DeviceAbility.CAPTURE_SOUND]
 		}
 

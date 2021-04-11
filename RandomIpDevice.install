@@ -1,12 +1,12 @@
 {
     "name": "RandomIpDevice",
-    "version": "1.0.7",
+    "version": "1.1.0",
     "icon": "fas fa-network-wired",
     "category": "household",
     "author": "philipp2310",
     "maintainers": [],
     "desc": "Monitor and access any device reachable via ip",
-    "aliceMinVersion": "1.0.0-b3",
+    "aliceMinVersion": "1.0.0-rc1",
     "systemRequirements": [
         ""
     ],

@@ -7,15 +7,24 @@ from core.dialog.model.DialogSession import DialogSession
 from flask import jsonify
 
 
-class IpDevice(DeviceType):
+class IpDevice(Device):
 	DEV_SETTINGS = {
 		'ip'  : '',
 		'href': ''
 	}
 
-
-	def __init__(self, data: sqlite3.Row):
-		super().__init__(data, devSettings=self.DEV_SETTINGS, heartbeatRate=0, allowLocationLinks=False)
+	@classmethod
+	def getDeviceTypeDefinition(cls) -> dict:
+		return {
+			'deviceTypeName'        : 'RandomIpDevice',
+			'perLocationLimit'      : 0,
+			'totalDeviceLimit'      : 0,
+			'allowLocationLinks'    : False,
+			'allowHeartbeatOverride': False,
+			'heartbeatRate'         : 0,
+			'deviceSettings'        : DEV_SETTINGS,
+			'abilities'             : [DeviceAbility.PLAY_SOUND, DeviceAbility.CAPTURE_SOUND]
+		}
 
 
 	def discover(self, device: Device, uid: str, replyOnSiteId: str = "", session: DialogSession = None) -> bool:
@@ -33,15 +42,20 @@ class IpDevice(DeviceType):
 		# hard: custom setting
 		try:
 			if subprocess.call(['ping', '-c', '1', device.devSettings['ip']]) == 0:
-				return 'IpDevice_connected.png'
+				return Path(f'{self.Commons.rootDir()}/skills/{self.skillName}/devices/img/IpDevice_connected.png')
 			else:
-				return 'IpDevice_disconnected.png'
+				return Path(f'{self.Commons.rootDir()}/skills/{self.skillName}/devices/img/IpDevice_disconnected.png')
 		except:
 			pass
-		return 'IpDevice.png'
+		return Path(f'{self.Commons.rootDir()}/skills/{self.skillName}/devices/img/IpDevice.png')
 
 
-	def toggle(self, device: Device):
+	def onUIClick(self) -> dict:
+		"""
+		Called whenever a device's icon is clicked on the UI
+		:return:
+		"""
 		if not 'href' in device.devSettings or not device.devSettings['href']:
 			raise RequiresGuiSettings()
-		return jsonify(href=device.devSettings['href'])
+
+		return OnDeviceClickReaction(action=DeviceClickReactionAction.NAVIGATE.value, data=device.devSettings['href']).toDict()

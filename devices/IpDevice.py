@@ -37,7 +37,7 @@ class IpDevice(Device):
 		return True
 
 
-	def getDeviceIcon(self, device: Device) -> Path:
+	def getDeviceIcon(self) -> Path:
 		# ping now and decide on icon
 		# enhancement: ping periodically and update
 		# easy: onFiveMinutes
@@ -60,4 +60,4 @@ class IpDevice(Device):
 		if not 'href' in self.devSettings or not self.devSettings['href']:
 			raise RequiresGuiSettings()
 
-		return OnDeviceClickReaction(action=DeviceClickReactionAction.NAVIGATE.value, data=device.devSettings['href']).toDict()
+		return OnDeviceClickReaction(action=DeviceClickReactionAction.NAVIGATE.value, data=self.devSettings['href']).toDict()

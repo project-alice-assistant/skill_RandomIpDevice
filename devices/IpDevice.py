@@ -37,13 +37,13 @@ class IpDevice(Device):
 		return True
 
 
-	def getDeviceIcon(self, device: Device) -> str:
+	def getDeviceIcon(self, device: Device) -> Path:
 		# ping now and decide on icon
 		# enhancement: ping periodically and update
 		# easy: onFiveMinutes
 		# hard: custom setting
 		try:
-			if subprocess.call(['ping', '-c', '1', device.devSettings['ip']]) == 0:
+			if subprocess.call(['ping', '-c', '1', self.devSettings['ip']]) == 0:
 				return Path(f'{self.Commons.rootDir()}/skills/{self.skillName}/devices/img/IpDevice_connected.png')
 			else:
 				return Path(f'{self.Commons.rootDir()}/skills/{self.skillName}/devices/img/IpDevice_disconnected.png')

@@ -5,6 +5,9 @@ from core.device.model.DeviceException import RequiresGuiSettings
 from core.device.model.DeviceType import DeviceType
 from core.dialog.model.DialogSession import DialogSession
 from core.device.model.DeviceAbility import DeviceAbility
+from core.webui.model.DeviceClickReactionAction import DeviceClickReactionAction
+from core.webui.model.OnDeviceClickReaction import OnDeviceClickReaction
+from pathlib import Path
 from flask import jsonify
 
 
@@ -30,7 +33,8 @@ class IpDevice(Device):
 			raise RequiresGuiSettings()
 		pong = subprocess.call(['ping', '-c', '1', device.devSettings['ip']]) == 0
 		if pong:
-			device.pairingDone(uid=uid)
+			self.pairingDone(uid=uid)
+		return True
 
 
 	def getDeviceIcon(self, device: Device) -> str:
@@ -53,7 +57,7 @@ class IpDevice(Device):
 		Called whenever a device's icon is clicked on the UI
 		:return:
 		"""
-		if not 'href' in device.devSettings or not device.devSettings['href']:
+		if not 'href' in self.devSettings or not self.devSettings['href']:
 			raise RequiresGuiSettings()
 
 		return OnDeviceClickReaction(action=DeviceClickReactionAction.NAVIGATE.value, data=device.devSettings['href']).toDict()

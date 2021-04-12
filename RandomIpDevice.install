@@ -10,7 +10,7 @@
     "systemRequirements": [
         ""
     ],
-    "pipRequirements": [],
+    "pipRequirements": ["icmplib"],
     "conditions": {
         "lang": [
             "en",

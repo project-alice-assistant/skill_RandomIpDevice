@@ -11,6 +11,13 @@
 			"dataType"    : "string",
 			"isSensitive" : false,
 			"description" : "The url that should be opened upon clicking the icon"
+		},
+		"storeTelemetry":{
+			"defaultValue": true,
+			"dataType"    : "boolean",
+			"isSensitive" : false,
+			"description" : "Should the status be stored as telemetry value?"
 		}
+
 	}
 }

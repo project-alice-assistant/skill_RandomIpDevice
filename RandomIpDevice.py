@@ -12,3 +12,8 @@ class RandomIpDevice(AliceSkill):
 	# possible enhancements:
 	# - request status via voice (device name must be dynamically injected!)
 	pass
+
+	def onFullMinute(self):
+		devices = self.DeviceManager.getDevicesBySkill(skillName=self.name)
+		for device in devices:
+			device.pingMe()

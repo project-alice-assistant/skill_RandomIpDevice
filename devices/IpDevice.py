@@ -1,17 +1,24 @@
 import sqlite3
-import subprocess
 from core.device.model.Device import Device
 from core.device.model.DeviceException import RequiresGuiSettings
 from core.device.model.DeviceType import DeviceType
+from core.util.model.TelemetryType import TelemetryType
 from core.dialog.model.DialogSession import DialogSession
 from core.device.model.DeviceAbility import DeviceAbility
 from core.webui.model.DeviceClickReactionAction import DeviceClickReactionAction
 from core.webui.model.OnDeviceClickReaction import OnDeviceClickReaction
 from pathlib import Path
 from flask import jsonify
-
+from icmplib import ping
+from typing import Union, Dict
 
 class IpDevice(Device):
+
+
+	def __init__(self, data: Union[sqlite3.Row, Dict]):
+		super().__init__(data)
+		self.pingMe()
+
 
 	@classmethod
 	def getDeviceTypeDefinition(cls) -> dict:
@@ -21,32 +28,23 @@ class IpDevice(Device):
 			'totalDeviceLimit'      : 0,
 			'allowLocationLinks'    : False,
 			'allowHeartbeatOverride': False,
-			'heartbeatRate'         : 0,
+			'heartbeatRate'         : 80,
 			'abilities'             : [DeviceAbility.PLAY_SOUND, DeviceAbility.CAPTURE_SOUND]
 		}
-
-
-	def discover(self, device: Device, uid: str, replyOnSiteId: str = "", session: DialogSession = None) -> bool:
-		if not 'ip' in device.devSettings or not device.devSettings['ip']:
-			raise RequiresGuiSettings()
-		pong = subprocess.call(['ping', '-c', '1', device.devSettings['ip']]) == 0
-		if pong:
-			self.pairingDone(uid=uid)
-		return True
-
 
 	def getDeviceIcon(self) -> Path:
 		# ping now and decide on icon
 		# enhancement: ping periodically and update
 		# easy: onFiveMinutes
 		# hard: custom setting
-		try:
-			if subprocess.call(['ping', '-c', '1', self.devSettings['ip']]) == 0:
-				return Path(f'{self.Commons.rootDir()}/skills/{self.skillName}/devices/img/IpDevice_connected.png')
-			else:
-				return Path(f'{self.Commons.rootDir()}/skills/{self.skillName}/devices/img/IpDevice_disconnected.png')
-		except:
-			pass
+		if self.getConfig('ip'):
+			try:
+				if self.pingMe():
+					return Path(f'{self.Commons.rootDir()}/skills/{self.skillName}/devices/img/IpDevice_connected.png')
+				else:
+					return Path(f'{self.Commons.rootDir()}/skills/{self.skillName}/devices/img/IpDevice_disconnected.png')
+			except:
+				pass
 		return Path(f'{self.Commons.rootDir()}/skills/{self.skillName}/devices/img/IpDevice.png')
 
 
@@ -55,7 +53,23 @@ class IpDevice(Device):
 		Called whenever a device's icon is clicked on the UI
 		:return:
 		"""
+		if not self.uid:
+			if self.pingMe():
+				self.pairingDone(uid=self.getConfig('ip'))
+
 		if not self.getConfig('href'):
 			raise RequiresGuiSettings()
 
 		return OnDeviceClickReaction(action=DeviceClickReactionAction.NAVIGATE.value, data=self.getConfig('href')).toDict()
+
+
+	def pingMe(self):
+		before = self.connected
+		request = ping(self.getConfig('ip'), privileged=False)
+		self.connected = self.getConfig('ip') and request.is_alive
+		if before != self.connected:
+			self.broadcastUpdated()
+		if self.getConfig('storeTelemetry'):
+			self.TelemetryManager.storeData(deviceId=self.id, locationId=self.parentLocation, ttype=TelemetryType.LATENCY, value=request.avg_rtt, service=self._skillName)
+			self.TelemetryManager.storeData(deviceId=self.id, locationId=self.parentLocation, ttype=TelemetryType.PACKET_LOSS, value=request.packet_loss, service=self._skillName)
+		return self.connected

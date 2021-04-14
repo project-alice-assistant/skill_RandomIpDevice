@@ -1,16 +1,18 @@
 {
-    "name": "RandomIpDevice",
-    "version": "1.1.2",
-    "icon": "fas fa-network-wired",
-    "category": "household",
-    "author": "philipp2310",
-    "maintainers": [],
-    "desc": "Monitor and access any device reachable via ip",
-    "aliceMinVersion": "1.0.0-rc1",
+    "name"              : "RandomIpDevice",
+    "version"           : "1.1.3",
+    "icon"              : "fas fa-network-wired",
+    "category"          : "household",
+    "author"            : "philipp2310",
+    "maintainers"       : [],
+    "desc"              : "Monitor and access any device reachable via ip",
+    "aliceMinVersion"   : "1.0.0-rc1",
     "systemRequirements": [
         ""
     ],
-    "pipRequirements": ["icmplib"],
+    "pipRequirements"   : [
+        "icmplib"
+    ],
     "conditions": {
         "lang": [
             "en",

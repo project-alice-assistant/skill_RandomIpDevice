@@ -1,16 +1,17 @@
 import sqlite3
 from core.device.model.Device import Device
+from core.device.model.DeviceAbility import DeviceAbility
 from core.device.model.DeviceException import RequiresGuiSettings
 from core.device.model.DeviceType import DeviceType
-from core.util.model.TelemetryType import TelemetryType
 from core.dialog.model.DialogSession import DialogSession
-from core.device.model.DeviceAbility import DeviceAbility
+from core.util.model.TelemetryType import TelemetryType
 from core.webui.model.DeviceClickReactionAction import DeviceClickReactionAction
 from core.webui.model.OnDeviceClickReaction import OnDeviceClickReaction
-from pathlib import Path
 from flask import jsonify
 from icmplib import ping
-from typing import Union, Dict
+from pathlib import Path
+from typing import Dict, Union
+
 
 class IpDevice(Device):
 
@@ -53,9 +54,9 @@ class IpDevice(Device):
 		Called whenever a device's icon is clicked on the UI
 		:return:
 		"""
-		if not self.uid:
+		if not self.paired:
 			if self.pingMe():
-				self.pairingDone(uid=self.getConfig('ip'))
+				self.pairingDone(uid=self.newSecret())
 
 		if not self.getConfig('href'):
 			raise RequiresGuiSettings()

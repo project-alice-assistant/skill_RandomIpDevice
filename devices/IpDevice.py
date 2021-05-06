@@ -55,7 +55,7 @@ class IpDevice(Device):
 		Called whenever a device's icon is clicked on the UI
 		:return:
 		"""
-		if not self.paired:
+		if self.getConfig('ip') and not self.paired:
 			if self.pingMe():
 				self.pairingDone(uid=self.newSecret())
 

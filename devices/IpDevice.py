@@ -18,7 +18,8 @@ class IpDevice(Device):
 
 	def __init__(self, data: Union[sqlite3.Row, Dict]):
 		super().__init__(data)
-		self.pingMe()
+		if self.getConfig('ip'):
+			self.pingMe()
 
 
 	@classmethod

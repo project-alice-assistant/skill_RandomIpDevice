@@ -31,7 +31,7 @@ class IpDevice(Device):
 			'allowLocationLinks'    : False,
 			'allowHeartbeatOverride': False,
 			'heartbeatRate'         : 80,
-			'abilities'             : [DeviceAbility.PLAY_SOUND, DeviceAbility.CAPTURE_SOUND]
+			'abilities'             : []
 		}
 
 	def getDeviceIcon(self) -> Path:

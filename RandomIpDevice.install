@@ -1,6 +1,6 @@
 {
     "name": "RandomIpDevice",
-    "version": "1.1.8",
+    "version": "1.1.9",
     "icon": "fas fa-network-wired",
     "category": "household",
     "author": "philipp2310",

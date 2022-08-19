@@ -39,7 +39,7 @@ class IpDevice(Device):
 		# enhancement: ping periodically and update
 		# easy: onFiveMinutes
 		# hard: custom setting
-		icon = ''
+		icon = Path(f'{self.Commons.rootDir()}/skills/{self.skillName}/devices/img/IpDevice.png')
 		if self.getConfig('ip'):
 			try:
 				if self.pingMe():
@@ -48,9 +48,6 @@ class IpDevice(Device):
 					icon = Path(f'{self.Commons.rootDir()}/skills/{self.skillName}/devices/img/IpDevice_disconnected.png')
 			except:
 				pass
-
-		if not icon:
-			icon = Path(f'{self.Commons.rootDir()}/skills/{self.skillName}/devices/img/IpDevice.png')
 
 		return super().getDeviceIcon(icon)
 
